@@ -37,13 +37,13 @@ def part2():
     bags = read_input('input.txt')
 
     def search_aux(x):
-        bag = x[0]; n = x[1]
+        [bag, n] = x
         if len(bags[bag]) == 0: return n
         else: 
             return n*sum(map(search_aux, bags[bag]))+n
 
     # minus 1 because it's "inside shiny gold"
-    return search_aux(('shiny gold', 1) - 1) 
+    return search_aux(('shiny gold', 1))-1 
 
 print("Part 1:", part1())
 print("Part 2:", part2())
