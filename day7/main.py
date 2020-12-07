@@ -45,5 +45,11 @@ def part2():
     # minus 1 because it's "inside shiny gold"
     return search_aux(('shiny gold', 1))-1 
 
+def part2golf():
+    bs = read_input('input.txt')
+    s = lambda x: x[1]*sum(map(s, bs[x[0]]))+x[1] if len(bs[x[0]]) else x[1]
+    return s(('shiny gold', 1))-1 
+       
+
 print("Part 1:", part1())
 print("Part 2:", part2())
