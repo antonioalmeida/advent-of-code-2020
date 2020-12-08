@@ -1,6 +1,6 @@
-const fs = require('fs')
+import { readInput } from '../utils'
 
-const arr = fs.readFileSync('input1.txt').toString().split("\n")
+const arr = readInput('day5.in')
             .map((line) => {
                 const row = parseInt(line.slice(0,7).split('').map((char) => {
                     if (char == 'F') return 0
@@ -16,17 +16,14 @@ const arr = fs.readFileSync('input1.txt').toString().split("\n")
             })
             .sort((a,b) => a-b)
 
-const part1 = () => {
+export const part1 = () => {
     return arr[arr.length-1]
 }
 
-const part2 = () => {
+export const part2 = () => {
 
     for (let id = 0; id< arr.length; id++) { 
         if (arr[id + 1] - arr[id] > 1)
             return arr[id] + 1
     }
 }
-
-console.log('Part 1:', part1())
-console.log('Part 2:', part2())

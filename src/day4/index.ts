@@ -1,20 +1,39 @@
 const fs = require('fs')
+import { readInput } from '../utils'
+
+interface Keys {
+    byr?: string
+    iyr?: string
+    eyr?: string
+    hgt?: string
+    hcl?: string
+    ecl?: string
+    pid?: string
+}
 
 const requiredKeys = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
 
-const part1 = () => {
-    const arr = fs.readFileSync('inputmaria.txt').toString().split("\n\n").map((entry) => {
+export const part1 = () => {
+
+    const arr = readInput('day4.in', "\n\n").map((entry) => {
         const keys = entry.split('\n').flat().map((passport) => passport.split(' ').map((entry) => entry.split(':')[0])).flat()
 
         return requiredKeys.filter((x) => !keys.includes(x)).length > 0 ? false : true
     })
 
-    return arr.reduce((a, b) => a + b)
+    // const arr = fs.readFileSync('input1.txt').toString().split("\n\n").map((entry) => {
+    //     const keys = entry.split('\n').flat().map((passport) => passport.split(' ').map((entry) => entry.split(':')[0])).flat()
+
+    //     return requiredKeys.filter((x) => !keys.includes(x)).length > 0 ? false : true
+    // })
+
+    // @ts-ignore
+    return arr.reduce((a:boolean , b:boolean) => a + b)
 }
 
 const validate = (passport) => {
 
-    let parsedPassport = {}
+    let parsedPassport: Keys = {}
     passport.forEach(element => {
         parsedPassport = { 
             ...parsedPassport,
@@ -36,9 +55,9 @@ const validate = (passport) => {
     return true
 }
 
-const part2 = () => {
+export const part2 = () => {
 
-    const arr = fs.readFileSync('input1.txt').toString().split("\n\n").map((entry) => {
+    const arr = fs.readFileSync('day4.in').toString().split("\n\n").map((entry) => {
         const keys = entry.split('\n').flat().map((passport) => passport.split(' ').map((entry) => {
             const kv = entry.split(':')
             return { [kv[0]]: kv[1] }
@@ -49,6 +68,3 @@ const part2 = () => {
 
     return arr.reduce((a, b) => a + b)
 }
-
-console.log("Part 1:", part1())
-console.log("Part 2:", part2())

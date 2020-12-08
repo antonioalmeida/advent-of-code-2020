@@ -1,21 +1,21 @@
-const fs = require('fs')
+import { readInput } from '../utils'
 
 const deepClone = (arr) => {
     return JSON.parse(JSON.stringify(arr))
 } 
 
-const program = fs.readFileSync('input.txt').toString().split("\n").map((entry) => { 
+const program = readInput('day8.in').map((entry) => { 
     const [op, arg] = entry.split(' ')
     return { op, arg: parseInt(arg)}
 })
 
 const map = {
-    'nop': (_, state) => state.index++,
+    'nop': (arg, state) => state.index++,
     'acc': (arg, state) => { state.acc += arg; state.index++ },
     'jmp': (arg, state) => { state.index += arg }
 }
 
-const part1 = () => {
+export const part1 = () => {
     const executed = {}
 
     const state = {
@@ -32,11 +32,11 @@ const part1 = () => {
     return state
 }
 
-const part2 = () => {
+export const part2 = () => {
 
     let finished = false
 
-    const occurences = program.map(({op, _}, index) => {
+    const occurences = program.map(({op, arg}, index) => {
         if (op == 'nop' || op == 'jmp')
             return index
     }).filter((elem) => elem)
@@ -62,7 +62,3 @@ const part2 = () => {
         }
     }
 }
-
-console.log('Part 1:', part1())
-console.log('Part 2:', part2())
-

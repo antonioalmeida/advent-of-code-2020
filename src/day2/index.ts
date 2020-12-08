@@ -1,6 +1,6 @@
-const fs = require('fs');
+import { readInput } from '../utils'
 
-const arr = fs.readFileSync('input1.txt').toString().split("\n").map((entry) => {
+const arr = readInput('day2.in').map((entry) => {
     const parts = entry.split(':') 
     const [min,rest] = parts[0].split('-')
     const [max, char] = rest.split(' ')
@@ -9,7 +9,7 @@ const arr = fs.readFileSync('input1.txt').toString().split("\n").map((entry) => 
     return { min: parseInt(min), max: parseInt(max), char, password }
 })
 
-const part1 = () => {
+export const part1 = () => {
 
     const valids = arr.map((entry) => {
         let nOccurrences = 0
@@ -21,10 +21,11 @@ const part1 = () => {
         return nOccurrences >= entry.min && nOccurrences <= entry.max
     })
 
+    // @ts-ignore
     return valids.reduce((a,b) => a+b)
 }
 
-const part2 = () => {
+export const part2 = () => {
 
     const valids = arr.map((entry) => {
         let nOccurrences = 0
@@ -36,8 +37,6 @@ const part2 = () => {
         return nOccurrences == 1
     })
 
+    // @ts-ignore
     return valids.reduce((a,b) => a+b)
 }
-
-console.log('Part 1:', part1())
-console.log('Part 2:', part2())
