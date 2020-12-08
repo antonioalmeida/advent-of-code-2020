@@ -3,7 +3,7 @@ const fs = require('fs')
 const requiredKeys = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
 
 const part1 = () => {
-    const arr = fs.readFileSync('input1.txt').toString().split("\n\n").map((entry) => {
+    const arr = fs.readFileSync('inputmaria.txt').toString().split("\n\n").map((entry) => {
         const keys = entry.split('\n').flat().map((passport) => passport.split(' ').map((entry) => entry.split(':')[0])).flat()
 
         return requiredKeys.filter((x) => !keys.includes(x)).length > 0 ? false : true
