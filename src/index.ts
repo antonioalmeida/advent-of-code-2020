@@ -6,8 +6,9 @@ import * as day5 from './day5'
 import * as day6 from './day6'
 import * as day7 from './day7'
 import * as day8 from './day8'
+import * as day9 from './day9'
 
-const days = { day1, day2, day3, day4, day5, day6, day7, day8 }
+const days = { day1, day2, day3, day4, day5, day6, day7, day8, day9 }
 
 import yargs from 'yargs' 
 import { hideBin } from 'yargs/helpers'
