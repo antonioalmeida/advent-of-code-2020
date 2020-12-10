@@ -4,9 +4,7 @@ export const part1 = () => {
     const adapters = readInput('day10.in').map((entry) => Number(entry))
     adapters.sort((a,b) => a-b)
 
-    let nDiff1 = 0
-    let nDiff3 = 0
-
+    let nDiff1 = 0; let nDiff3 = 0
     let currentJolt = 0
 
     for (const adapter of adapters) {
@@ -25,5 +23,25 @@ export const part1 = () => {
 }
 
 export const part2 = () => {
-    console.log('Done in Python. Needs rewrite.')
+    const adapters = readInput('day10.in').map((entry) => Number(entry))
+    adapters.sort((a,b) => b-a)
+
+    // Add built-in adapter
+    adapters.unshift(adapters[0] + 3)
+
+    // Add wall socket
+    adapters.push(0)
+
+    const memoization = {}
+
+    const lastAdapter = adapters.shift()
+    memoization[lastAdapter] = 1
+
+    for (const adapter of adapters) {
+        memoization[adapter] = (memoization[adapter+1] || 0)
+                             + (memoization[adapter+2] || 0)
+                             + (memoization[adapter+3] || 0)
+    }
+
+    return memoization[0]
 }
