@@ -24,12 +24,12 @@ export const part1 = () => {
     }
     
     const operations = {
-        'N': ((state, arg) => { state.y += arg }),
-        'S': ((state, arg) => { state.y -= arg }),
-        'E': ((state, arg) => { state.x += arg }),
-        'W': ((state, arg) => { state.x -= arg }),
-        'R': ((state, arg) => { rotate(state, arg) }),
-        'L': ((state, arg) => { rotate(state, -arg) })
+        'N': ((st, arg) => st.y += arg),
+        'S': ((st, arg) => st.y -= arg),
+        'E': ((st, arg) => st.x += arg),
+        'W': ((st, arg) => st.x -= arg),
+        'R': ((st, arg) => rotate(st, arg)),
+        'L': ((st, arg) => rotate(st, -arg))
     }
 
     for (const {op, value} of instructions) 
