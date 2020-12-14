@@ -1,7 +1,7 @@
 import { readInput } from '../utils'
 
 export const part1 = () => {
-    const [time, busIds] = readInput('example13.in')
+    const [time, busIds] = readInput('day13.in')
     const targetTime = parseInt(time)
     const buses:Array<number> = busIds.split(',').filter((id) => id != 'x').map((bus) => parseInt(bus))
 
@@ -20,5 +20,11 @@ export const part1 = () => {
 }
 
 export const part2 = () => {
-    console.log('Done in Python. Needs rewrite.')
+    const [_, busIds] = readInput('example13.in')
+    const buses = busIds.split(',').map((bus, index) => ({ bus, index }))
+                        .filter(({bus, index}) => bus != 'x')
+                        .map(({bus, index}) => ({ bus: parseInt(bus), index, res: parseInt(bus) - index}))
+
+    console.log(buses)
 }
+
