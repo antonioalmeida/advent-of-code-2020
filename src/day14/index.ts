@@ -1,31 +1,23 @@
 import { argv } from 'process'
 import { readInput } from '../utils'
 
+const operations = readInput('day14.in').map((entry) => {
+    let mask: string
+    let arg: string
+    let position: number
+
+    if (/^mask/.test(entry))
+        mask = entry.split('=')[1].trim()
+    else {
+        const split = entry.split('=')
+        position = parseInt(split[0].match(/^mem\[(\d+)\]/)[1])
+        arg = parseInt(split[1]).toString(2).padStart(36, '0') // str -> int -> binary
+    }
+    return { mask, arg, position }
+})
+
 export const part1 = () => {
-
-    const operations = readInput('day14.in').map((entry) => {
-        // let mask:Array<{bit: number, index: number}>
-        let mask:string
-        let arg:string
-        let position: number
-
-        if(/^mask/.test(entry)) {
-            mask = entry.split('=')[1].trim()
-        //     mask = entry.split('=')[1].split('')
-        //                 .map((bit, index) => ({ bit, index}) )
-        //                 .filter(({bit, index}) => bit != 'X')
-        //                 .map(({bit, index}) => ({bit: parseInt(bit), index}))
-        }
-        else {
-            const split = entry.split('=') 
-            position = parseInt(split[0].match(/^mem\[(\d+)\]/)[1])
-            arg = parseInt(split[1]).toString(2).padStart(36, '0') // str -> int -> binary
-        }
-        return { mask, arg, position }
-    })
-
     const memory = {}
-
     let activeMask: string
     for (const op of operations) {
         if (op.mask) {
@@ -38,10 +30,8 @@ export const part1 = () => {
     }
 
     // @ts-ignore
-    return Object.values(memory).reduce((a,b) => a+b)
+    return Object.values(memory).reduce((a, b) => a + b)
 }
-
-
 
 export const part2 = () => {
     console.log('Done in Python. Needs rewrite.')
