@@ -11,8 +11,9 @@ import * as day10 from './day10'
 import * as day11 from './day11'
 import * as day12 from './day12'
 import * as day13 from './day13'
+import * as day14 from './day14'
 
-const days = { day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13 }
+const days = { day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14 }
 
 import yargs from 'yargs' 
 import { hideBin } from 'yargs/helpers'
