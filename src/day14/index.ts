@@ -1,4 +1,3 @@
-import { argv } from 'process'
 import { readInput } from '../utils'
 
 const operations = readInput('day14.in').map((entry) => {
@@ -34,5 +33,46 @@ export const part1 = () => {
 }
 
 export const part2 = () => {
-    console.log('Done in Python. Needs rewrite.')
+    const memory = {}
+    let activeMask: string
+    for (const op of operations) {
+        if (op.mask) {
+            activeMask = op.mask
+            continue
+        }
+
+        const address = op.position.toString(2).padStart(36, '0').split('')
+            .map((bit, index) => activeMask[index] == 'X' ? 'X' : activeMask[index] == '1' ? '1' : bit).join('')
+        getCombinations(address).map((addr) => memory[addr] = parseInt(op.arg, 2))
+    }
+
+    // @ts-ignore
+    return Object.values(memory).reduce((a, b) => a + b)
+}
+
+const getCombinations = (str: string) => {
+    const queue = [str]
+    const res = []
+
+    while (queue.length > 0) {
+        const curr = queue.shift()
+        const pair = getCombinationsAux(curr)
+
+        if (pair.length == 1)
+            res.push(...pair)
+        else
+            queue.push(...pair)
+    }
+
+    return res
+}
+
+const getCombinationsAux = (str: string) => {
+    if (str.indexOf('X') < 0)
+        return [str]
+
+    const xIndex = str.indexOf('X')
+    const ones = str.slice(0, xIndex) + '1' + str.slice(xIndex + 1)
+    const zeros = str.slice(0, xIndex) + '0' + str.slice(xIndex + 1)
+    return [ones, zeros]
 }
