@@ -24,9 +24,12 @@ export const runProblem = (day: string, part: string) => {
     console.log('Running', problem)
     // tslint:disable-next-line: no-eval
     if (typeof eval(`${problem}`) === 'function') {
-      // tslint:disable-next-line: no-eval
+        const t0 = Date.now()
+        // tslint:disable-next-line: no-eval
         const result = eval(`${problem}()`)
         console.log('Result:', result)
+        const t1 = Date.now()
+        console.log(`Time: ${(t1 - t0)}ms.`)
     }
     else
       console.log('No such problem!')
