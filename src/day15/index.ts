@@ -7,10 +7,8 @@ const countTurns = (stopTurn) => {
     const occurences = new Map()
     let turn = numbers.length + 1
 
-    for (let i = 0; i < numbers.length; i++) {
-        const n = numbers[i]
-        occurences.set(n, [i + 1])
-    }
+    for (const [i,n] of numbers.entries()) 
+        occurences.set(n, [i+1])
 
     let previous = numbers.pop()
     while (turn <= stopTurn) {
