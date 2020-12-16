@@ -1,48 +1,37 @@
-import { number } from 'yargs'
 import { readInput } from '../utils'
 
-export const part1 = () => {
-    const numbers = readInput('day15.in')[0].split(',').map((e) => parseInt(e))
+const numbers = readInput('day15.in')[0].split(',').map((e) => parseInt(e))
 
-    const occurences = {}
+const countTurns = (stopTurn) => {
+
+    const occurences = new Map()
     let turn = numbers.length + 1
 
     for (let i = 0; i < numbers.length; i++) {
         const n = numbers[i]
-        occurences[n] = [i+1]
+        occurences.set(n, [i + 1])
     }
 
-    console.log('occorences', occurences)
-    console.log('numbers', numbers)
-
     let previous = numbers.pop()
-    while(turn <= 30000000) {
-        // console.log(turn)
-        const prev = occurences[previous]
+    while (turn <= stopTurn) {
+        const prev = occurences.get(previous)
+        const next = prev.length == 1 ? 0 : prev[1] - prev[0]
 
-        if (prev.length == 1) {
-            const occur0 = occurences[0]
-            occur0 ? occurences[0].push(turn) : occurences[0] = [turn]
-            // console.log(`turn, ${turn}, previous ${previous}, spoken ${0}`)
-            previous = 0
-            if (occur0.length > 2) occurences[0].shift()
-        } 
-        else {
-            //const next =    Math.abs(occurences[previous].reduce((a,b) => a-b))
-            const next = occurences[previous][1] - occurences[previous][0]
-            occurences[next] ? occurences[next].push(turn) : occurences[next] = [turn]
-            // console.log(`turn, ${turn}, previous ${previous}, spoken ${next}`)
-            if (occurences[next].length > 2) occurences[next].shift()
-            previous = next
-        }
+        const toSpeak = occurences.get(next)
+        toSpeak ? toSpeak.push(turn) : occurences.set(next, [turn])
+        if (occurences.get(next).length > 2) toSpeak.shift()
 
+        previous = next
         turn++
     }
 
-    console.log(numbers.length)
     return previous
 }
 
+export const part1 = () => {
+    return countTurns(2020)
+}
+
 export const part2 = () => {
-    console.log('Done in Python. Needs rewrite.')
+    return countTurns(30000000)
 }
