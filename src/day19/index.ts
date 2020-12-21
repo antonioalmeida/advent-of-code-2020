@@ -21,11 +21,26 @@ export const part1 = () => {
 
     const messages = mess.split('\n')
 
-    const getRule = (index) => {
+    const getRule = (index):string => {
         const rule = grammarRaw[index]
 
         if (grammar.has(index)) {
             return grammar.get(index)
+        }
+        else if (index == 8) {
+            const r0 = `${getRule(rule.rule0[0])}${rule.rule0[1] ? getRule(rule.rule0[1]) : ''}+`
+            grammar.set(index, r0)
+            return r0
+        }
+        else if (index == 11) {
+            let r = '('; let n = 1;
+            while(n < 10) {
+                r += `${getRule(rule.rule0[0]).repeat(n)}${getRule(rule.rule0[1]).repeat(n)}`
+                r += n == 9 ? ')' : '|'
+                n++
+            }
+            grammar.set(index, r)
+            return r
         }
         else {
             const r0 = `(${getRule(rule.rule0[0])}${rule.rule0[1] ? getRule(rule.rule0[1]) : ''}`
@@ -46,5 +61,5 @@ export const part1 = () => {
 }
 
 export const part2 = () => {
-    console.log('Done in Python. Needs rewrite.')
+    console.log('Modified part1. Run part1 instead.')
 }
