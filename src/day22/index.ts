@@ -28,7 +28,6 @@ export const part2 = () => {
     const player2 = p2Raw.split('\n').slice(1).map((e) => parseInt(e))
 
     const res = playGame(player1, player2)
-    console.log('Player 1 won:', res)
     const winner = player1.length > 0 ? player1 : player2
     return winner.reverse().map((c, i) => c * (i + 1)).reduce((a, b) => a + b)
 }
