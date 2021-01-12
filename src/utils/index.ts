@@ -38,3 +38,7 @@ export function difference<T>(arr1: Array<T>, arr2: Array<T>) {
     return arr1.filter(x => !arr2.includes(x));
 }
 
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
